@@ -106,8 +106,35 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path='*' element={<NotFound404 />} />
+          <Route
+            path='orders/:number'
+            element={
+              <ProtectedRoute>
+                <OrderInfo />
+              </ProtectedRoute>
+            }
+          />
         </Route>
+        <Route
+          path='/ingredients/:id'
+          element={
+            <div className={styles.detailPageWrap}>
+              <p className={`text text_type_main-large ${styles.detailHeader}`}>
+                Детали ингредиента
+              </p>
+              <IngredientDetails />
+            </div>
+          }
+        />
+        <Route
+          path='/feed/:number'
+          element={
+            <div className={styles.detailPageWrap}>
+              <OrderInfo />
+            </div>
+          }
+        />
+        <Route path='*' element={<NotFound404 />} />
       </Routes>
       {background && (
         <Routes>
@@ -115,9 +142,9 @@ const App = () => {
             path='/profile/orders/:number'
             element={
               <ProtectedRoute>
-                <Modal title='' onClose={() => navigate(-1)}>
+                <div className={styles.detailPageWrap}>
                   <OrderInfo />
-                </Modal>
+                </div>
               </ProtectedRoute>
             }
           />
