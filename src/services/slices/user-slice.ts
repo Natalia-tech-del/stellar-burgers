@@ -7,6 +7,7 @@ import {
   getUserApi
 } from '../../utils/burger-api';
 import { TUser } from '@utils-types';
+import { getCookie, setCookie } from '../../../src/utils/cookie';
 
 type TUserState = {
   user: TUser | null;
@@ -27,6 +28,8 @@ export const registerUser = createAsyncThunk(
   'user/registerUser',
   async (data: TRegisterData) => {
     const response = await registerUserApi(data);
+    setCookie('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
     return response.user;
   }
 );
@@ -36,6 +39,8 @@ export const loginUser = createAsyncThunk(
   'user/loginUser',
   async (data: TLoginData) => {
     const response = await loginUserApi(data);
+    setCookie('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
     return response.user;
   }
 );
@@ -43,16 +48,31 @@ export const loginUser = createAsyncThunk(
 //запрос на сервер с токеном - получаем юзера или ошибку, если оба токена истекли
 export const getUserWithToken = createAsyncThunk(
   'user/getUserWithToken',
-  async () => {
-    const response = await getUserApi();
-    return response.user;
+  async (_, { dispatch }) => {
+    const token = getCookie('accessToken');
+
+    if (!token) {
+      dispatch(authChecked());
+      return null;
+    }
+    try {
+      const response = await getUserApi();
+      return response.user;
+    } catch (error) {
+      dispatch(authChecked());
+      throw error;
+    }
   }
 );
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    authChecked: (state) => {
+      state.isAuthChecked = true;
+    }
+  },
   extraReducers: (builder) => {
     builder
       //registerUser
@@ -96,11 +116,10 @@ export const userSlice = createSlice({
       .addCase(getUserWithToken.rejected, (state, action) => {
         state.isAuthChecked = true;
         state.loading = false;
-        state.error = action.error.message ?? null;
       })
       .addCase(
         getUserWithToken.fulfilled,
-        (state, action: PayloadAction<TUser>) => {
+        (state, action: PayloadAction<TUser | null>) => {
           state.user = action.payload;
           state.isAuthChecked = true;
           state.loading = false;
@@ -108,3 +127,5 @@ export const userSlice = createSlice({
       );
   }
 });
+
+export const { authChecked } = userSlice.actions;
