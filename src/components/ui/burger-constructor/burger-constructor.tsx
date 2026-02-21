@@ -9,6 +9,7 @@ import { BurgerConstructorUIProps } from './type';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorElement, Modal } from '@components';
 import { Preloader, OrderDetailsUI } from '@ui';
+import commonStyles from '../../../components/ui/pages/common.module.css';
 
 export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   constructorItems,
@@ -16,7 +17,8 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   price,
   orderModalData,
   onOrderClick,
-  closeOrderModal
+  closeOrderModal,
+  error
 }) => (
   <section className={styles.burger_constructor}>
     {constructorItems.bun ? (
@@ -85,6 +87,11 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         children='Оформить заказ'
         onClick={onOrderClick}
       />
+      {error && (
+        <p className={commonStyles.error}>
+          Запрос завершился с ошибкой: {error}
+        </p>
+      )}
     </div>
 
     {orderRequest && (
