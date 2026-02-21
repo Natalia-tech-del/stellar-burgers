@@ -11,8 +11,8 @@ export const Profile: FC = () => {
   const dispatch = useDispatch();
 
   const [formValue, setFormValue] = useState({
-    name: user?.name|| '',
-    email: user?.email||'',
+    name: user?.name || '',
+    email: user?.email || '',
     password: ''
   });
 
@@ -24,20 +24,18 @@ export const Profile: FC = () => {
     }));
   }, [user]);
 
- 
-
-
   const isFormChanged =
     formValue.name !== user?.name ||
     formValue.email !== user?.email ||
-    !!formValue.password; 
+    !!formValue.password;
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     if (!isFormChanged) {
       return;
     }
-    const updatedData: { name?: string; email?: string; password?: string } = {};
+    const updatedData: { name?: string; email?: string; password?: string } =
+      {};
     if (formValue.name !== user?.name) {
       updatedData.name = formValue.name;
     }
@@ -48,7 +46,7 @@ export const Profile: FC = () => {
       updatedData.password = formValue.password;
     }
     dispatch(updateUser(updatedData));
-    setFormValue(prev => ({ ...prev, password: '' }));
+    setFormValue((prev) => ({ ...prev, password: '' }));
   };
 
   const handleCancel = (e: SyntheticEvent) => {
@@ -59,7 +57,7 @@ export const Profile: FC = () => {
         email: user.email,
         password: ''
       });
-    };
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,19 +69,18 @@ export const Profile: FC = () => {
 
   return (
     <>
-    {loading ? (
+      {loading ? (
         <Preloader />
       ) : (
-    <ProfileUI
-      formValue={formValue}
-      isFormChanged={isFormChanged}
-      handleCancel={handleCancel}
-      handleSubmit={handleSubmit}
-      handleInputChange={handleInputChange}
-      updateUserError={error || undefined}
-    />
-  
-  )}
-  </> 
-  ) 
+        <ProfileUI
+          formValue={formValue}
+          isFormChanged={isFormChanged}
+          handleCancel={handleCancel}
+          handleSubmit={handleSubmit}
+          handleInputChange={handleInputChange}
+          updateUserError={error || undefined}
+        />
+      )}
+    </>
+  );
 };
