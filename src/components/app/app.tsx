@@ -142,9 +142,12 @@ const App = () => {
             path='/profile/orders/:number'
             element={
               <ProtectedRoute>
-                <div className={styles.detailPageWrap}>
+                <Modal
+                  title={`#${orderNumber && orderNumber.padStart(6, '0')}`}
+                  onClose={() => navigate(-1)}
+                >
                   <OrderInfo />
-                </div>
+                </Modal>
               </ProtectedRoute>
             }
           />
