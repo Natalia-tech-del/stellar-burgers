@@ -4,6 +4,7 @@ import { burgerConstructorSlice } from '../services/slices/burger-constructor-sl
 import { orderSlice } from '../services/slices/order-slice';
 import { userSlice } from './slices/user-slice';
 import { feedSlice } from './slices/feed-slice';
+import { userFeedSlice } from './slices/user-feed-slice';
 import {
   TypedUseSelectorHook,
   useDispatch as dispatchHook,
@@ -15,7 +16,8 @@ const rootReducer = combineSlices(
   burgerConstructorSlice,
   orderSlice,
   userSlice,
-  feedSlice
+  feedSlice,
+  userFeedSlice
 );
 
 const store = configureStore({

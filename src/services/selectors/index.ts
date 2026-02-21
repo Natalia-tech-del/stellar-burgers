@@ -6,3 +6,4 @@ export const selectBurgerConstructor = (state: RootState) =>
 export const selectOrder = (state: RootState) => state.order;
 export const selectUser = (state: RootState) => state.user;
 export const selectFeed = (state: RootState) => state.feed;
+export const selectUserFeed = (state: RootState) => state.userFeed;
