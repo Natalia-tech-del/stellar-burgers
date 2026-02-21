@@ -4,10 +4,12 @@ import {
   TRegisterData,
   loginUserApi,
   TLoginData,
-  getUserApi
+  getUserApi,
+  updateUserApi,
+  logoutApi
 } from '../../utils/burger-api';
 import { TUser } from '@utils-types';
-import { getCookie, setCookie } from '../../../src/utils/cookie';
+import { getCookie, setCookie, deleteCookie } from '../../../src/utils/cookie';
 
 type TUserState = {
   user: TUser | null;
@@ -64,6 +66,22 @@ export const getUserWithToken = createAsyncThunk(
     }
   }
 );
+
+//обновление данных пользователя
+export const updateUser = createAsyncThunk(
+  'user/updateUser',
+  async (user: Partial<TRegisterData>) => {
+    const response = await updateUserApi(user);
+    return response.user;
+  }
+);
+
+//выход пользователя
+export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
+  await logoutApi();
+  deleteCookie('accessToken');
+  localStorage.removeItem('refreshToken');
+});
 
 export const userSlice = createSlice({
   name: 'user',
@@ -124,7 +142,40 @@ export const userSlice = createSlice({
           state.isAuthChecked = true;
           state.loading = false;
         }
-      );
+      )
+      //updateUser
+      .addCase(updateUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isAuthChecked = true;
+        state.loading = false;
+        state.error = action.error.message ?? null;
+      })
+      .addCase(
+        updateUser.fulfilled,
+        (state, action: PayloadAction<TUser | null>) => {
+          state.user = action.payload;
+          state.isAuthChecked = true;
+          state.loading = false;
+        }
+      )
+      //logoutUser
+      .addCase(logoutUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.isAuthChecked = true;
+        state.loading = false;
+        state.error = action.error.message ?? null;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.isAuthChecked = true;
+        state.loading = false;
+      });
   }
 });
 
