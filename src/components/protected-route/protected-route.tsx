@@ -9,7 +9,7 @@ type ProtectedRouteProps = {
 };
 
 export const ProtectedRoute = ({
-  onlyUnAuth,
+  onlyUnAuth = false,
   children
 }: ProtectedRouteProps) => {
   const { isAuthChecked, user } = useSelector(selectUser);

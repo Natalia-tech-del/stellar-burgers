@@ -10,6 +10,7 @@ import {
 import { useDispatch } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
 import { postOrder, closeModal } from '../../services/slices/order-slice';
+import { clearConstructor } from '../../services/slices/burger-constructor-slice';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
@@ -45,7 +46,7 @@ export const BurgerConstructor: FC = () => {
       bun!._id
     ];
 
-    dispatch(postOrder(data));
+    dispatch(postOrder(data)).then(() => dispatch(clearConstructor()));
   };
 
   const closeOrderModal = () => {
