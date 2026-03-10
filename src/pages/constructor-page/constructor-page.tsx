@@ -1,19 +1,29 @@
-import { useSelector } from '../../services/store';
-
+import { useSelector, useDispatch } from '../../services/store';
+import { selectIngredients } from '../../services/selectors/index';
 import styles from './constructor-page.module.css';
-
 import { BurgerIngredients } from '../../components';
 import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
 import { FC } from 'react';
+import commonStyles from '../../components/ui/pages/common.module.css';
 
 export const ConstructorPage: FC = () => {
   /** TODO: взять переменную из стора */
-  const isIngredientsLoading = false;
+  const { loading, error } = useSelector(selectIngredients);
+
+  if (error) {
+    return (
+      <main className={styles.containerMain}>
+        <p className={commonStyles.error}>
+          Запрос завершился с ошибкой: {error}
+        </p>
+      </main>
+    );
+  }
 
   return (
     <>
-      {isIngredientsLoading ? (
+      {loading ? (
         <Preloader />
       ) : (
         <main className={styles.containerMain}>
