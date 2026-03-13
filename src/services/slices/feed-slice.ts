@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getFeedsApi, TFeedsResponse } from '../../utils/burger-api';
 import { TOrder } from '@utils-types';
 
-type TFeedState = {
+export type TFeedState = {
   orders: TOrder[];
   total: number;
   totalToday: number;
@@ -48,3 +48,7 @@ export const feedSlice = createSlice({
       );
   }
 });
+
+export default feedSlice.reducer; 
+
+

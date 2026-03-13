@@ -51,14 +51,14 @@ describe('Проверяем редьюсер слайса burgerConstructor', (
     }]
   } as TConstructorState;
 
-  const addedSauсe = {
+  const addedSauce = {
             _id: "643d69a5c3f7b9001cfa0944",
             name: "Соус традиционный галактический",
             type: "sauce",
             price: 15
   } as TIngredient;
 
-  const stateWithAddedSauсe = {
+  const stateWithAddedSauce = {
     bun: {
       _id:"643d69a5c3f7b9001cfa093c",
       name:"Краторная булка N-200i",
@@ -182,9 +182,9 @@ describe('Проверяем редьюсер слайса burgerConstructor', (
   });
 
   test('Добавить ингредиент - соус', () => {
-    const newState = burgerConstructorReducer(initialState, addIngredient(addedSauсe));
+    const newState = burgerConstructorReducer(initialState, addIngredient(addedSauce));
     expect(nanoid).toHaveBeenCalledTimes(1);
-    expect(newState).toEqual(stateWithAddedSauсe);
+    expect(newState).toEqual(stateWithAddedSauce);
   });
   
   test('Удалить ингредиент', () => {
