@@ -39,3 +39,5 @@ export const ingredientsSlice = createSlice({
       });
   }
 });
+
+export default ingredientsSlice.reducer;
