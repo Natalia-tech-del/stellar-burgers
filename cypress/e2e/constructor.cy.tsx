@@ -110,6 +110,5 @@ describe('проверяем функциональность страницы �
         cy.get('[data-cy=lastBun]').should('not.exist');
         cy.get('[data-cy=ingredientItem]').should('have.length', 0);
     });
-
 });
 
