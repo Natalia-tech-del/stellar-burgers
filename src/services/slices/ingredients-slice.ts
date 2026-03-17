@@ -2,13 +2,13 @@ import { TIngredient } from '../../utils/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getIngredientsApi } from '../../utils/burger-api';
 
-type TIngredientsState = {
+export type TIngredientsState = {
   ingredients: Array<TIngredient>;
   loading: boolean;
   error: string | null;
 };
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
   ingredients: [],
   loading: false,
   error: null
@@ -39,3 +39,5 @@ export const ingredientsSlice = createSlice({
       });
   }
 });
+
+export default ingredientsSlice.reducer;

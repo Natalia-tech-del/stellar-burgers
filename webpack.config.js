@@ -92,7 +92,7 @@ module.exports = {
     historyApiFallback: true,
     port: 4000,
     client: { 
-    overlay: false 
+    overlay: true 
     } 
   }
 };
