@@ -1,17 +1,11 @@
 import orderReducer, {
   postOrder,
   getOrderByNumber,
-  TOrderState
+  TOrderState,
+  initialState
 } from './order-slice';
 
 describe('Проверяем редьюсер слайса orderSlice', () => {
-  const initialState: TOrderState = {
-    orderModalData: null,
-    orderRequest: false,
-    error: null,
-    orderByNumber: null
-  };
-
   const statePending = {
     ...initialState,
     orderRequest: true,

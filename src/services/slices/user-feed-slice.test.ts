@@ -1,15 +1,10 @@
 import userFeedReducer, {
   getUserFeed,
-  TUserFeedState
+  TUserFeedState,
+  initialState
 } from './user-feed-slice';
 
 describe('Проверяем редьюсер слайса userFeedSlice', () => {
-  const initialState: TUserFeedState = {
-    orders: [],
-    loading: false,
-    error: null
-  };
-
   const statePending = {
     ...initialState,
     loading: true,

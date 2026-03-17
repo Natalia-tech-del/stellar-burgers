@@ -1,14 +1,7 @@
-import feedReducer, { TFeedState, getFeeds } from './feed-slice';
+import feedReducer, { TFeedState, getFeeds, initialState } from './feed-slice';
 
 describe('Проверяем редьюсер слайса feedSlice', () => {
-  const initialState: TFeedState = {
-    orders: [],
-    total: 0,
-    totalToday: 0,
-    loading: false,
-    error: null
-  };
-
+  
   const statePending = {
     ...initialState,
     loading: true,

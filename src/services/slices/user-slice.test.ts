@@ -4,17 +4,11 @@ import userReducer, {
   getUserWithToken,
   updateUser,
   logoutUser,
-  TUserState
+  TUserState,
+  initialState
 } from './user-slice';
 
 describe('Проверяем редьюсер слайса userSlice', () => {
-  const initialState: TUserState = {
-    user: null,
-    isAuthChecked: false,
-    loading: false,
-    error: null
-  };
-
   const statePending = {
     ...initialState,
     loading: true,

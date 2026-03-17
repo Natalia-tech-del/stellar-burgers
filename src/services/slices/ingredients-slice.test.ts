@@ -1,15 +1,10 @@
 import ingredientReducer, {
   getIngredients,
-  TIngredientsState
+  TIngredientsState,
+  initialState
 } from './ingredients-slice';
 
 describe('Проверяем редьюсер слайса ingredientsSlice', () => {
-  const initialState: TIngredientsState = {
-    ingredients: [],
-    loading: false,
-    error: null
-  };
-
   const statePending = {
     ...initialState,
     loading: true,
