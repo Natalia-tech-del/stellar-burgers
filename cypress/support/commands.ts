@@ -35,3 +35,17 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add('addIngredientToConstructor', (ingredientId) => {
+  cy.get(`[data-cy=${ingredientId}]`).contains('button', 'Добавить').click();
+  });
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      addIngredientToConstructor(ingredientId: string): Chainable;
+    }
+  }
+}
+
+export {};
